@@ -69,7 +69,7 @@ function fnSendAndroid()
 
 $deviceToken = 'b5d91dcb142e8d2cda08adba887e9ab1c6674d3c89aed97539e1534ad7d2af84';
 $passphrase = '';
-$message = "Breakasdasjkdfaskfjaskfjasjkdfjjksdfjsdjkfhsdjkfhsdjkfhsdjkfhsdjkfjsdklfj!";
+$message = "hello !";
 
 function sendToIOS($deviceToken, $passphrase, $message)
 {
@@ -91,7 +91,8 @@ function sendToIOS($deviceToken, $passphrase, $message)
 
     // Create the payload body
     $body['aps'] = array(
-        'alert' => $message,
+        'title' => "Tiitle",
+        'body' => $message,
         'sound' => 'default',
 
     );
@@ -120,18 +121,12 @@ function sendAnd()
 {
     // API access key from Google API's Console
     define('API_ACCESS_KEY', 'AAAA5EI9g-g:APA91bG5JcGd5_4oA__SOgLz_fqB0y77QFN9L2PpvxsXdkgJjMDT0VYVMI1oa5BfYqgSdEM-cqD6J_aYJnn61-CYfvNFGalaANzefnduF8uIphCEIrRBJBlej0UIn6VFcCxhl-V1Mp0b');
-    $registrationIds = "eGpbQX0eBWc:APA91bHJidLxA4XwLWPRQAaf-NtgrmwlDl-KKiWHXcWd9L_10LQcz6roaFf5lKUYHMaNI0UmeRey5K0TG3TR9B6U0CIwwczdU3XMvSrxiIXy77kO4vPXxEr9n64ajpZDsyJTfNF1uj0F";
+    $registrationIds = ['f_RL2KBlsaA:APA91bExYihSVZkU99K-gQqfaZR-MEJyMNZ3lM3IJ5XRD69mvBR_ot7K2uNjgqdCohwinBhaTcHxUHA256lZQc43vD7VdSCRrUKPS2ypCFFI9BBYVNoznHqjWLbQIagnrQUNkfy7HG-E'];
 // prep the bundle
     $msg = array
     (
         'message' => 'here is a message. message',
-        'title' => 'This is a title. title',
-        'subtitle' => 'This is a subtitle. subtitle',
-        'tickerText' => 'Ticker text here...Ticker text here...Ticker text here',
-        'vibrate' => 1,
-        'sound' => 1,
-        'largeIcon' => 'large_icon',
-        'smallIcon' => 'small_icon'
+
     );
     $fields = array
     (
@@ -146,7 +141,7 @@ function sendAnd()
     );
 
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, 'https://android.googleapis.com/gcm/send');
+    curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
