@@ -1,55 +1,43 @@
 <?php
 
-use \CodeMonkeysRu\GCM;
+class PushAndroid {
 
+    // API access key from Google API's Console
+    const GOOGLE_ACCESS_KEY = 'AAAA5EI9g-g:APA91bG5JcGd5_4oA__SOgLz_fqB0y77QFN9L2PpvxsXdkgJjMDT0VYVMI1oa5BfYqgSdEM-cqD6J_aYJnn61-CYfvNFGalaANzefnduF8uIphCEIrRBJBlej0UIn6VFcCxhl-V1Mp0b';
+    // Phone Id
+    const DEVICE_ID = "f_RL2KBlsaA:APA91bExYihSVZkU99K-gQqfaZR-MEJyMNZ3lM3IJ5XRD69mvBR_ot7K2uNjgqdCohwinBhaTcHxUHA256lZQc43vD7VdSCRrUKPS2ypCFFI9BBYVNoznHqjWLbQIagnrQUNkfy7HG-E";
+    // URL where send push notification
+    const URL_OF_GCM = 'https://fcm.googleapis.com/fcm/send';
 
-$sender = new GCM\Sender("YOUR GOOGLE API KEY");
+    public function sendAnd($message = null)
+    {
+        // prep the bundle
+        $msg = array
+        (
+            'message' => $message ? $message : 'Message not exist',
+        );
+        $fields = array
+        (
+            'to' => self::DEVICE_ID,
+            'data' => $msg
+        );
 
-$message = new GCM\Message(
-    array("device_registration_id1", "device_registration_id2"),
-    array("data1" => "123", "data2" => "string")
-);
+        $headers = array
+        (
+            'Authorization: key=' . self::GOOGLE_ACCESS_KEY,
+            'Content-Type: application/json'
+        );
 
-$message
-    ->notification(array("title" => "foo", "body" => "bar"))
-    ->setCollapseKey("collapse_key")
-    ->setDelayWhileIdle(true)
-    ->setTtl(123)
-    ->setRestrictedPackageName("com.example.trololo")
-    ->setDryRun(true)
-    ->setPriority(GCM\Message::PRIORITY_HIGH);
-
-try {
-    $response = $sender->send($message);
-
-    if ($response->getNewRegistrationIdsCount() > 0) {
-        $newRegistrationIds = $response->getNewRegistrationIds();
-        foreach ($newRegistrationIds as $oldRegistrationId => $newRegistrationId) {
-            //Update $oldRegistrationId to $newRegistrationId in DB
-            //TODO
-        }
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, self::URL_OF_GCM);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+        $result = curl_exec($ch);
+        curl_close($ch);
+        echo $result;
     }
 
-    if ($response->getFailureCount() > 0) {
-        $invalidRegistrationIds = $GCMresponse->getInvalidRegistrationIds();
-        foreach ($invalidRegistrationIds as $invalidRegistrationId) {
-            //Remove $invalidRegistrationId from DB
-            //TODO
-        }
-
-        //Schedule to resend messages to unavailable devices
-        $unavailableIds = $response->getUnavailableRegistrationIds();
-        //TODO
-    }
-} catch (GCM\Exception $e) {
-
-    switch ($e->getCode()) {
-        case GCM\Exception::ILLEGAL_API_KEY:
-        case GCM\Exception::AUTHENTICATION_ERROR:
-        case GCM\Exception::MALFORMED_REQUEST:
-        case GCM\Exception::UNKNOWN_ERROR:
-        case GCM\Exception::MALFORMED_RESPONSE:
-            //Deal with it
-            break;
-    }
 }
