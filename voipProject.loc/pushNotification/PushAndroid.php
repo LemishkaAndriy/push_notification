@@ -1,6 +1,7 @@
 <?php
 
-class PushAndroid {
+class PushAndroid
+{
 
     // API access key from Google API's Console
     const GOOGLE_ACCESS_KEY = 'AAAA5EI9g-g:APA91bG5JcGd5_4oA__SOgLz_fqB0y77QFN9L2PpvxsXdkgJjMDT0VYVMI1oa5BfYqgSdEM-cqD6J_aYJnn61-CYfvNFGalaANzefnduF8uIphCEIrRBJBlej0UIn6VFcCxhl-V1Mp0b';
@@ -14,11 +15,13 @@ class PushAndroid {
         // prep the bundle
         $msg = array
         (
-            'message' => $message ? $message : 'Message not exist',
+            'title' => 'Calling...',
+            'body' => $message ? $message : 'Message not exist'
         );
         $fields = array
         (
             'to' => self::DEVICE_ID,
+            'priority' => 'high',
             'data' => $msg
         );
 
