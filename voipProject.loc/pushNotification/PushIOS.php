@@ -1,7 +1,8 @@
 <?php
 
 
-class PushIOS{
+class PushIOS
+{
 
     const DEVICE_TOKEN = 'b5d91dcb142e8d2cda08adba887e9ab1c6674d3c89aed97539e1534ad7d2af84';
     const PASS_KEY = '';
@@ -22,11 +23,11 @@ class PushIOS{
         if (!$fp)
             exit("Failed to connect: $err $errstr" . PHP_EOL);
 
-        echo 'Connected to APNS' . PHP_EOL;
+//        echo 'Connected to APNS' . PHP_EOL;
 
         // Create the payload body
         $body['aps'] = array(
-            'title' => "Tiitle",
+            'title' => "Calling...",
             'body' => $message,
             'sound' => 'default',
 
@@ -41,10 +42,10 @@ class PushIOS{
         // Send it to the server
         $result = fwrite($fp, $msg, strlen($msg));
 
-        if (!$result)
-            echo 'Message not delivered' . PHP_EOL;
-        else
-            echo 'Message successfully delivered' . PHP_EOL;
+//        if (!$result)
+//            echo 'Message not delivered' . PHP_EOL;
+//        else
+//            echo 'Message successfully delivered' . PHP_EOL;
 
         // Close the connection to the server
         fclose($fp);

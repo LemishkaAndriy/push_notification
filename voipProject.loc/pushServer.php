@@ -4,6 +4,9 @@ require_once('pushNotification/PushAndroid.php');
 require_once('pushNotification/PushIOS.php');
 
 
+//$message = "hello !";
+
+
 function pushCall()
 {
     $deviceToken = 'b5d91dcb142e8d2cda08adba887e9ab1c6674d3c89aed97539e1534ad7d2af84';
