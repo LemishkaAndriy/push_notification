@@ -35,8 +35,8 @@ class PushIOS
         // Create the payload body
         $body['aps'] = array(
             'title' => "Calling...",
-            'body' => $message,
-            'sound' => 'default',
+            'body' => $message ? $message : 'Message not exist',
+            'sound' => 'default'
 
         );
 

@@ -1,15 +1,12 @@
 <?php
 namespace Src;
 
-use Katzgrau\KLogger\Logger;
-use Psr\Log\LogLevel;
-use Monolog\Handler\StreamHandler;
 class PushAndroid {
 
     // API access key from Google API's Console
     const GOOGLE_ACCESS_KEY = 'AAAA5EI9g-g:APA91bG5JcGd5_4oA__SOgLz_fqB0y77QFN9L2PpvxsXdkgJjMDT0VYVMI1oa5BfYqgSdEM-cqD6J_aYJnn61-CYfvNFGalaANzefnduF8uIphCEIrRBJBlej0UIn6VFcCxhl-V1Mp0b';
     // Phone Id
-    const DEVICE_ID = "eGpbQX0eBWc:APA91bHJidLxA4XwLWPRQAaf-NtgrmwlDl-KKiWHXcWd9L_10LQcz6roaFf5lKUYHMaNI0UmeRey5K0TG3TR9B6U0CIwwczdU3XMvSrxiIXy77kO4vPXxEr9n64ajpZDsyJTfNF1uj0F";
+    const DEVICE_ID = "f_RL2KBlsaA:APA91bExYihSVZkU99K-gQqfaZR-MEJyMNZ3lM3IJ5XRD69mvBR_ot7K2uNjgqdCohwinBhaTcHxUHA256lZQc43vD7VdSCRrUKPS2ypCFFI9BBYVNoznHqjWLbQIagnrQUNkfy7HG-E";
     // URL where send push notification
     const URL_OF_GCM = 'https://fcm.googleapis.com/fcm/send';
 
@@ -21,11 +18,13 @@ class PushAndroid {
         // prep the bundle
         $msg = array
         (
-            'message' => $message ? $message : 'Message not exist',
+            'title' => 'Calling...',
+            'body' => $message ? $message : 'Message not exist'
         );
         $fields = array
         (
             'to' => self::DEVICE_ID,
+            'priority' => 'high',
             'data' => $msg
         );
 
@@ -44,7 +43,7 @@ class PushAndroid {
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
         $result = curl_exec($ch);
         curl_close($ch);
-
+//        echo $result;
     }
 
 }
