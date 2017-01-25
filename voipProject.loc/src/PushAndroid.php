@@ -1,7 +1,8 @@
 <?php
 namespace Src;
 
-class PushAndroid {
+class PushAndroid
+{
 
     // API access key from Google API's Console
     const GOOGLE_ACCESS_KEY = 'AAAA5EI9g-g:APA91bG5JcGd5_4oA__SOgLz_fqB0y77QFN9L2PpvxsXdkgJjMDT0VYVMI1oa5BfYqgSdEM-cqD6J_aYJnn61-CYfvNFGalaANzefnduF8uIphCEIrRBJBlej0UIn6VFcCxhl-V1Mp0b';
@@ -10,7 +11,7 @@ class PushAndroid {
     // URL where send push notification
     const URL_OF_GCM = 'https://fcm.googleapis.com/fcm/send';
 
-    public function sendAnd($message = null)
+    public function sendToAndroid($message = null)
     {
 //        $logger = new \Monolog\Logger('name');
 //        $logger->pushHandler(new StreamHandler('path/to/your.log', Logger::WARNING));
