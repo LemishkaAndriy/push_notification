@@ -1,11 +1,9 @@
 <?php
+require __DIR__ . '/vendor/autoload.php';
 
-require_once('src\PushAndroid.php');
-require_once('src\PushIOS.php');
-require_once('src\Config.php');
-//use Src\PushAndroid;
-//use Src\PushIOS;
-
+use App\PushIOS;
+use App\PushAndroid;
+use App\Config;
 
 function pushCall()
 {
@@ -27,9 +25,9 @@ function pushCall()
     $usedquota_out = $_GET["param8"];
 
 
-    $sendToIOS = new \Src\PushAndroid();
+    $sendToIOS = new PushAndroid();
     $sendToIOS->sendToAndroid($calledparty);
-    $sendToAnd = new \Src\PushIOS();
+    $sendToAnd = new PushIOS();
     $sendToAnd->sendToIOS($deviceToken, $passphrase, $calledparty);
 
 
