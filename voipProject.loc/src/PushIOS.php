@@ -1,7 +1,8 @@
 <?php
 namespace Src;
+
 use Psr\Log\LogLevel;
-use Katzgrau\KLogger\Logger ;
+use Katzgrau\KLogger\Logger;
 
 
 class PushIOS
@@ -10,14 +11,9 @@ class PushIOS
     const DEVICE_TOKEN = 'b5d91dcb142e8d2cda08adba887e9ab1c6674d3c89aed97539e1534ad7d2af84';
     const PASS_KEY = '';
 
-    public function say()
-    {
-        return 'ios nad android';
-    }
 
     function sendToIOS($deviceToken, $passphrase, $message)
     {
-        $logger = new Logger('/var/log/', LogLevel::WARNING);
         $ctx = stream_context_create();
         stream_context_set_option($ctx, 'ssl', 'local_cert', 'ck.pem');
         stream_context_set_option($ctx, 'ssl', 'passphrase', $passphrase);
@@ -49,11 +45,11 @@ class PushIOS
         // Send it to the server
         $result = fwrite($fp, $msg, strlen($msg));
 
-        if (!$result)
-            echo 'Message not delivered' . PHP_EOL;
+//        if (!$result)
+//            echo 'Message not delivered' . PHP_EOL;
 
-        else
-            echo 'Message successfully delivered' . PHP_EOL;
+//        else
+//            echo 'Message successfully delivered' . PHP_EOL;
 
         // Close the connection to the server
         fclose($fp);

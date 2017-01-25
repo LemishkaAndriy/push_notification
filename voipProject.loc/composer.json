@@ -1,7 +1,16 @@
 {
-    "require": {
-        "php": ">=5.6",
-        "katzgrau/klogger": "dev-master",
-		"monolog/monolog": "^1.22"
+  "name": "voipServer",
+  "license": "MIT",
+  "type": "project",
+  "description": "Voip server for push notification",
+  "autoload": {
+    "psr-4": {
+      "": "src/"
     }
+  },
+  "require": {
+    "php": ">=5.6",
+    "katzgrau/klogger": "dev-master",
+    "monolog/monolog": "^1.22"
+  }
 }
