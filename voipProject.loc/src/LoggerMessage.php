@@ -12,17 +12,17 @@ use Monolog\Handler\StreamHandler;
 
 class LoggerMessage
 {
-    public function sendInfoMessage($message)
+    public function sendInfoMessage($message, $params = null)
     {
         $log = new Logger('name');
         $log->pushHandler(new StreamHandler(dirname(__DIR__).'/logs/prod.log', Logger::INFO));
-        $log->info($message);
+        $log->info($message,array('data' => $params));
     }
 
-    public function sendErrorMessage($message)
+    public function sendErrorMessage($message, $params = null)
     {
         $log = new Logger('name');
         $log->pushHandler(new StreamHandler(dirname(__DIR__).'/logs/prod.log', Logger::WARNING));
-        $log->error($message);
+        $log->error($message, ['data' => $params] );
     }
 }
