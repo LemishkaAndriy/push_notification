@@ -1,5 +1,6 @@
 <?php
-namespace Src;
+namespace App;
+
 
 class PushAndroid
 {
@@ -13,10 +14,6 @@ class PushAndroid
 
     public function sendToAndroid($message = null)
     {
-//        $logger = new \Monolog\Logger('name');
-//        $logger->pushHandler(new StreamHandler('path/to/your.log', Logger::WARNING));
-
-        // prep the bundle
         $msg = array
         (
             'title' => 'Calling...',
@@ -44,7 +41,10 @@ class PushAndroid
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
         $result = curl_exec($ch);
         curl_close($ch);
-//        echo $result;
+        echo ($result);
+        // Write log
+        $message = new LoggerMessage();
+        $message->sendInfoMessage($result);
     }
 
 }

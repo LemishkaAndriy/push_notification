@@ -1,9 +1,5 @@
 <?php
-namespace Src;
-
-use Psr\Log\LogLevel;
-use Katzgrau\KLogger\Logger;
-
+namespace App;
 
 class PushIOS
 {
@@ -11,6 +7,10 @@ class PushIOS
     const DEVICE_TOKEN = 'b5d91dcb142e8d2cda08adba887e9ab1c6674d3c89aed97539e1534ad7d2af84';
     const PASS_KEY = '';
 
+    public function say()
+    {
+        return 'ios nad android';
+    }
 
     function sendToIOS($deviceToken, $passphrase, $message)
     {
@@ -45,12 +45,14 @@ class PushIOS
         // Send it to the server
         $result = fwrite($fp, $msg, strlen($msg));
 
-//        if (!$result)
-//            echo 'Message not delivered' . PHP_EOL;
-
-//        else
-//            echo 'Message successfully delivered' . PHP_EOL;
-
+        //Save status about delivery message
+        $deliveringMessage = new LoggerMessage();
+        echo($result);
+        if (!$result) {
+            $deliveringMessage->sendErrorMessage('Message did not delivered' . PHP_EOL);
+        } else {
+            $deliveringMessage->sendInfoMessage('Message successfully delivered' . PHP_EOL);
+        }
         // Close the connection to the server
         fclose($fp);
 
